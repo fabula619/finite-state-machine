@@ -1,9 +1,4 @@
 class FSM {
-
-    /**
-     * Creates new FSM instance.
-     * @param config
-     */
     constructor(config) {
         if (typeof config === 'undefined')
             throw new Error("no config");
@@ -17,10 +12,6 @@ class FSM {
         return this.currentState;
     }
 
-    /**
-     * Goes to specified state.
-     * @param state
-     */
     changeState(state) {
         if (!(state in this.states))
             throw new Error('doesn exist this state');
@@ -66,18 +57,18 @@ class FSM {
     }
 
     undo() {
-        if (this.history > 0) {
-            this.history--;
-            this.currentState = this.history[this.history];
+        if (this.index > 0) {
+            this.index--;
+            this.currentState = this.history[this.index];
             return true;
         } else
             return false;
     }
 
     redo() {
-        if (this.history < this.history.length) {
-            this.history++;
-            this.currentState = this.history[this.history];
+        if (this.index < this.history.length) {
+            this.index++;
+            this.currentState = this.history[this.index];
             return true;
         }
         else
@@ -86,7 +77,7 @@ class FSM {
 
     clearHistory() {
         this.history = [];
-        this.history = 0;
+        this.index = 0;
     }
 }
 module.exports = FSM;

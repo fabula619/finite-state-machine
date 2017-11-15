@@ -3,10 +3,10 @@ class FSM {
         if (typeof config === 'undefined')
             throw new Error("no config");
         this.states = config.states;
-        this.currentState;
+        this.currentState = config.initial;
         this.history = [];
-        this.index = 0;
-        this.changeState(config.initial)
+        this.index = -1;
+        this.changeState(this.currentState);
     }
 
     getState() {
@@ -59,7 +59,7 @@ class FSM {
     }
 
     undo() {
-        if (this.index > 0) {
+        if (this.index >= 0) {
             this.index--;
             this.currentState = this.history[this.index];
             return true;
@@ -69,7 +69,7 @@ class FSM {
     }
 
     redo() {
-        if (this.index < this.history.length) {
+        if (this.index+1 < this.history.length) {
             this.index++;
             this.currentState = this.history[this.index];
             return true;
@@ -80,7 +80,7 @@ class FSM {
 
     clearHistory() {
         this.history = [];
-        this.index = 0;
+        this.index = -1;
     }
 }
 module.exports = FSM;

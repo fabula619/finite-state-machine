@@ -3,9 +3,10 @@ class FSM {
         if (typeof config === 'undefined')
             throw new Error("no config");
         this.states = config.states;
-        this.currentState = config.initial;
+        this.currentState;
         this.history = [];
         this.index = 0;
+        this.changeState(config.initial)
     }
 
     getState() {

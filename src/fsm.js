@@ -29,7 +29,7 @@ class FSM {
         if (event in transitions)
             this.changeState(transitions[event]);
         else
-            throw Error("uncorrect event");
+            throw new Error("uncorrect event");
     }
 
     /**
@@ -49,10 +49,11 @@ class FSM {
         let arr = new Array();
         if (typeof event === 'undefined')
             arr = Object.keys(this.states);
-        else
+        else {
             for (let state in this.states)
                 if (event in this.states[state].transitions)
                     arr.push(state);
+        }
         return arr;
     }
 
@@ -61,7 +62,8 @@ class FSM {
             this.index--;
             this.currentState = this.history[this.index];
             return true;
-        } else
+        }
+        else
             return false;
     }
 

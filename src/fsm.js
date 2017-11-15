@@ -59,7 +59,7 @@ class FSM {
     }
 
     undo() {
-        if (this.index >= 0) {
+        if (this.index > 0) {
             this.index--;
             this.currentState = this.history[this.index];
             return true;
